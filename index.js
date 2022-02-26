@@ -11,7 +11,7 @@ const fs = require('fs');
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Origin', 'https://ytdownmike.netlify.app/');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', cors({ origin: 'http://localhost:8080/' }), (req, res, next) => {
+app.post('/', cors({ origin: 'https://ytdownmike.netlify.app/' }), (req, res, next) => {
     let link = req.body.link
     const info = ytdl.getInfo(link).then(info => {
         let musica = {
