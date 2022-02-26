@@ -8,7 +8,7 @@ const cors = require('cors');
 const nodei3 = require('node-id3').Promise
 const fs = require('fs');
 
-app.use(cors({origin:'http://192.168.0.16:8080'}))
+app.use(cors({origin:'http://localhost:8080'}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
@@ -16,6 +16,7 @@ app.use('/descargas', route)
 app.get('/', (req, res) => {
     console.log(process.env)
     console.log(__dirname)
+    console.log('hola')
     res.send('ok' )
 })
 
