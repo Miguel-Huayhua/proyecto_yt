@@ -15,6 +15,7 @@ app.use('/descargas', route)
 
 app.get('/', (req, res) => {
     console.log(process.env)
+    console.log(__dirname, fluent.caller)
     res.send('ok' )
 })
 
@@ -45,7 +46,7 @@ app.post('/', (req, res, next) => {
             if (val != '"' && val != '|' && val != '[' && val != ']' && val != '/') titulo = titulo + val;
         })
         console.log(titulo)
-        fluent.setFfmpegPath("./tmp/build_13677b34/.profile.d/ffmpeg.sh");
+        fluent.setFfmpegPath(process.env.PATH);
         let m = fs.createWriteStream(titulo + '0.mp3')
         ytdl(link, { filter: 'audioonly' }).pipe(m)
         m.on('finish', () => {
