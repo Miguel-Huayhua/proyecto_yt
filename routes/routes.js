@@ -5,7 +5,9 @@ const fs = require('fs')
 const yt = express.Router()
 const ffmpeg = require('fluent-ffmpeg')
 const cors = require('cors')
-yt.post("/",cors(), (req, res, next) => {
+
+
+yt.post("/", (req, res, next) => {
     let link = req.body.link
     ytdl.getInfo(link).then(info => {
         infoData = info.videoDetails.thumbnails[info.videoDetails.thumbnails.length - 1].url
