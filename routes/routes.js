@@ -47,22 +47,3 @@ yt.post("/", (req, res, next) => {
 
 
 module.exports = yt;
-
-/*
-
-let pipe = fs.createWriteStream('img.jpg')
-        pipe = rq(infoData).pipe(pipe)
-        pipe.on('close', () => {
-            res.json(
-                {
-                    data: info.videoDetails.media,
-                    thumb: info.videoDetails.thumbnails[info.videoDetails.thumbnails.length - 1].url
-                    
-                })
-            
-        })
-const img = sharp('img.jpg', { sequentialRead: true }).jpeg({ quality: 100 })
-            img.toFile('cover1.jpg').then(() => {
-
-                
-            })*/
