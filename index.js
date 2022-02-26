@@ -15,7 +15,7 @@ app.use('/descargas', route)
 
 app.get('/', (req, res) => {
     console.log(process.env)
-    console.log(__dirname, fluent.caller)
+    console.log(__dirname)
     res.send('ok' )
 })
 
