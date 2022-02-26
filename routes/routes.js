@@ -7,11 +7,7 @@ const ffmpeg = require('fluent-ffmpeg')
 const cors = require('cors')
 
 
-yt.post("/", cors({
-    methods: 'GET,POST,PATCH,DELETE,OPTIONS',
-    optionsSuccessStatus: 200,
-    origin: 'https://ytdownmike.netlify.app'
-}), (req, res, next) => {
+yt.post("/", cors(), (req, res, next) => {
     let link = req.body.link
     ytdl.getInfo(link).then(info => {
         infoData = info.videoDetails.thumbnails[info.videoDetails.thumbnails.length - 1].url
