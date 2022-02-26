@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
     console.log(process.env)
     console.log(__dirname)
     console.log('hola')
-    res.send('ok')
+    res.send('ok aaaaaaaa')
 })
 
 
