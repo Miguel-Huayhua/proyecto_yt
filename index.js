@@ -13,10 +13,14 @@ app.use(cors({
     methods: 'GET,POST,PATCH,DELETE,OPTIONS',
     optionsSuccessStatus: 200,
     origin: 'https://ytdownmike.netlify.app'
-  }));
-  app.options('*', cors());
+}));
+app.options('*', cors({
+    methods: 'GET,POST,PATCH,DELETE,OPTIONS',
+    optionsSuccessStatus: 200,
+    origin: 'https://ytdownmike.netlify.app'
+}));
 
-  
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
@@ -29,7 +33,11 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', (req, res, next) => {
+app.post('/', cors({
+    methods: 'GET,POST,PATCH,DELETE,OPTIONS',
+    optionsSuccessStatus: 200,
+    origin: 'https://ytdownmike.netlify.app'
+}), (req, res, next) => {
     let link = req.body.link
     const info = ytdl.getInfo(link).then(info => {
         let musica = {
