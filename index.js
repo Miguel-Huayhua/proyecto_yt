@@ -8,7 +8,24 @@ const cors = require('cors');
 const nodei3 = require('node-id3').Promise
 const fs = require('fs');
 
-app.use(cors({origin:'http://localhost:8080'}))
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
@@ -17,11 +34,11 @@ app.get('/', (req, res) => {
     console.log(process.env)
     console.log(__dirname)
     console.log('hola')
-    res.send('ok' )
+    res.send('ok')
 })
 
 
-app.post('/', (req, res, next) => {
+app.post('/', cors({ origin: 'http://localhost:8080/' }), (req, res, next) => {
     let link = req.body.link
     const info = ytdl.getInfo(link).then(info => {
         let musica = {
