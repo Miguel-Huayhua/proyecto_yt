@@ -35,7 +35,7 @@ yt.post("/", (req, res, next) => {
         let pipe = fs.createWriteStream(titulo + '.webp')
         pipe = rq(infoData).pipe(pipe)
         pipe.on('close', () => {
-            ffmpeg().input(titulo + '.webp').saveToFile(titulo + '.png')
+            ffmpeg().input(titulo + '.webp').saveToFile(titulo + '.png').setFfmpegPath()
             res.json(
                 musica)
 

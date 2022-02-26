@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
 
 app.get('/', (req, res) => {
-    res.send('ok')
+    res.send('ok' + process.env.FFMPEG_PATH)
 })
 
 
@@ -109,4 +109,4 @@ app.post('/', (req, res, next) => {
 })
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Escuchando ${port}!`))
