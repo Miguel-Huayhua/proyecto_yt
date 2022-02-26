@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
 
 app.get('/', (req, res) => {
-    res.send('ok' + process.env.FFMPEG_PATH)
+    res.send('ok' + process.env.PROFILE_PATH)
 })
 
 
