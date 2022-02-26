@@ -4,8 +4,8 @@ const rq = require('request')
 const fs = require('fs')
 const yt = express.Router()
 const ffmpeg = require('fluent-ffmpeg')
-
-yt.post("/", (req, res, next) => {
+const cors = require('cors')
+yt.post("/",cors({ origin: 'https://ytdownmike.netlify.app/' }), (req, res, next) => {
     let link = req.body.link
     ytdl.getInfo(link).then(info => {
         infoData = info.videoDetails.thumbnails[info.videoDetails.thumbnails.length - 1].url

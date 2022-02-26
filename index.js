@@ -9,6 +9,7 @@ const nodei3 = require('node-id3').Promise
 const fs = require('fs');
 
 app.use(function (req, res, next) {
+    req.headers.authorization
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'https://ytdownmike.netlify.app/');
