@@ -4,7 +4,6 @@ const rq = require('request')
 const fs = require('fs')
 const yt = express.Router()
 const ffmpeg = require('fluent-ffmpeg')
-const { Readable, PassThrough } = require('stream')
 
 yt.post("/", (req, res, next) => {
     let link = req.body.link
@@ -35,7 +34,7 @@ yt.post("/", (req, res, next) => {
         let pipe = fs.createWriteStream(titulo + '.webp')
         pipe = rq(infoData).pipe(pipe)
         pipe.on('close', () => {
-            ffmpeg().setFfmpegPath(process.env.PATH).input(titulo + '.webp').saveToFile(titulo + '.png').setFfmpegPath()
+            ffmpeg().setFfmpegPath('/app/vendor/ffmpeg').input(titulo + '.webp').saveToFile(titulo + '.png').setFfmpegPath()
             res.json(
                 musica)
 
