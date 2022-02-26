@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000 || process.env.PORT;
+const port = 80 || process.env.PORT;
 const ytdl = require('ytdl-core');
 const fluent = require('fluent-ffmpeg')
 const route = require('./routes/routes')
@@ -8,26 +8,14 @@ const cors = require('cors');
 const nodei3 = require('node-id3').Promise
 const fs = require('fs');
 const { nextTick } = require('process');
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
+
 app.get('/', (req, res) => {
-    res.send('ok')
+res.send('ok')
 })
 
 
@@ -54,7 +42,7 @@ app.post('/', (req, res, next) => {
         let titulo = ""
         musica.video.nombre.split("").map(val => {
             console.log(val)
-            if (val != '"' && val != '|' && val != '[' && val != ']' && val != '/') titulo = titulo + val;
+            if (val != '"' && val != '|' && val != '[' && val != ']'&& val != '/' ) titulo = titulo + val;
         })
         console.log(titulo)
         fluent.setFfmpegPath("./ffmpeg");
@@ -69,8 +57,8 @@ app.post('/', (req, res, next) => {
                 on('end', () => {
                     nodei3.update(
                         {
-                            PIC: titulo + '.png',
-                            APIC: titulo + '.png',
+                            PIC: titulo+'.png',
+                            APIC: titulo+'.png',
                             album: musica.autor.autor,
                             trackNumber: musica.video.likes,
                             originalYear: musica.video.year.substring(0, 4),
