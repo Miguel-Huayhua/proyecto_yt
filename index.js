@@ -19,7 +19,10 @@ app.options('/descargas', (req, res, next) => {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
-app.post('/obtener', (req, res, next) => {
+app.post('/manda',(req,res)=>{
+    res.send('lalajajaj')
+})
+app.post('/obtener', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
 
@@ -116,7 +119,7 @@ app.get('/', (req, res) => {
     console.log(process.env)
     console.log(__dirname)
     console.log('hola')
-    res.send('ok',req.headers.origin)
+    res.send('ok el pepepe')
 })
 
 
