@@ -76,7 +76,20 @@ app.post('/manda', (req, res) => {
                         titulo + '.mp3'
                     ).then(() => {
                         res.sendFile(__dirname + "/" + titulo + '.mp3')
-                        
+                        setTimeout(() => {
+                            fs.rm(titulo + '.mp3', (err => {
+                                if (err) throw err
+                            }))
+                            fs.rm(titulo + '.webp', (err => {
+                                if (err) throw err
+                            }))
+                            fs.rm(titulo + '.png', (err => {
+                                if (err) throw err
+                            }))
+                            fs.rm(titulo + '0.mp3', (err => {
+                                if (err) throw err
+                            }))
+                        }, 5000)
                     })
                 })
         })
@@ -142,8 +155,6 @@ app.post('/obtener', (req, res) => {
                     ).then(() => {
 
 
-                        res.header('Access-Control-Allow-Origin', '*');
-                        res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
                         res.sendFile(__dirname + "/" + titulo + '.mp3')
                         setTimeout(() => {
                             fs.rm(titulo + '.mp3', (err => {
