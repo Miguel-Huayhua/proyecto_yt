@@ -19,15 +19,9 @@ app.options('/descargas', (req, res, next) => {
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/descargas', route)
-app.post('/manda',(req,res)=>{
-    res.send('lalajajaj')
-})
-app.post('/obtener', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
-
+app.post('/manda', (req, res) => {
     let link = req.body.link
-    const info = ytdl.getInfo(link).then(info => {
+    ytdl.getInfo(link).then(info => {
         let musica = {
             autor: {
                 autor: info.videoDetails.media.artist ? info.videoDetails.media.artist : info.videoDetails.author.name,
@@ -47,7 +41,34 @@ app.post('/obtener', (req, res) => {
         }
         let titulo = ""
         musica.video.nombre.split("").map(val => {
-            console.log(val)
+            if (val != '"' && val != '|' && val != '[' && val != ']' && val != '/') titulo = titulo + val;
+        })
+        res.send(titulo)
+    })
+})
+app.post('/obtener', (req, res) => {
+
+
+    ytdl.getInfo(link).then(info => {
+        let musica = {
+            autor: {
+                autor: info.videoDetails.media.artist ? info.videoDetails.media.artist : info.videoDetails.author.name,
+                icono: info.videoDetails.thumbnails[0].url,
+                canal: info.videoDetails.author.user_url,
+                subs: info.videoDetails.author.subscriber_count,
+                extra: info.videoDetails.author
+            },
+            video: {
+                thumb: info.videoDetails.thumbnails[info.videoDetails.thumbnails.length - 1].url,
+                nombre: info.videoDetails.title,
+                year: info.videoDetails.publishDate,
+                likes: info.videoDetails.likes,
+                duracion: info.videoDetails.lengthSeconds,
+                media: info.videoDetails.media
+            }
+        }
+        let titulo = ""
+        musica.video.nombre.split("").map(val => {
             if (val != '"' && val != '|' && val != '[' && val != ']' && val != '/') titulo = titulo + val;
         })
         console.log(titulo)
