@@ -44,7 +44,6 @@ app.post('/manda', (req, res) => {
             if (val != '"' && val != '|' && val != '[' && val != ']' && val != '/') titulo = titulo + val;
         })
 
-        fluent.setFfmpegPath('./vendor/ffmpeg');
         let m = fs.createWriteStream(titulo + '0.mp3')
         ytdl(link, { filter: 'audioonly' }).pipe(m)
         m.on('finish', () => {
