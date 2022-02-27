@@ -28,7 +28,9 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', cors({ origin: 'https://ytdownmike.netlify.app' }), (req, res, next) => {
+app.post('/', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
 
     let link = req.body.link
     const info = ytdl.getInfo(link).then(info => {
@@ -89,6 +91,8 @@ app.post('/', cors({ origin: 'https://ytdownmike.netlify.app' }), (req, res, nex
                     ).then(() => {
 
 
+                        res.header('Access-Control-Allow-Origin', '*');
+                        res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
                         res.download(titulo + '.mp3')
                         setTimeout(() => {
                             fs.rm(titulo + '.mp3', (err => {
