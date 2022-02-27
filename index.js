@@ -114,7 +114,7 @@ app.post('/obtener', (req, res) => {
 
                         res.header('Access-Control-Allow-Origin', '*');
                         res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
-                        res.download(titulo + '.mp3')
+                        res.sendFile(__dirname+"/"+titulo + '.mp3')
                         setTimeout(() => {
                             fs.rm(titulo + '.mp3', (err => {
                                 if (err) throw err
