@@ -9,16 +9,7 @@ const nodei3 = require('node-id3').Promise
 const fs = require('fs');
 
 
-app.use(cors({
-    methods: 'GET,POST,PATCH,DELETE,OPTIONS',
-    optionsSuccessStatus: 200,
-    origin: 'https://ytdownmike.netlify.app'
-}));
-app.options('*', cors({
-    methods: 'GET,POST,PATCH,DELETE,OPTIONS',
-    optionsSuccessStatus: 200,
-    origin: 'https://ytdownmike.netlify.app'
-}));
+app.use(cors());
 
 
 app.use(express.json())
@@ -33,11 +24,9 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', cors({
-    methods: 'GET,POST,PATCH,DELETE,OPTIONS',
-    optionsSuccessStatus: 200,
-    origin: 'https://ytdownmike.netlify.app'
-}), (req, res, next) => {
+app.post('/', cors(), (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     let link = req.body.link
     const info = ytdl.getInfo(link).then(info => {
         let musica = {
