@@ -48,10 +48,18 @@ app.post('/manda', (req, res) => {
         let m = fs.createWriteStream(titulo + '0.mp3')
         ytdl(link, { filter: 'audioonly' }).pipe(m)
         m.on('finish', () => {
-            res.sendFile(__dirname+"/"+titulo+'0.mp3')
+            fluent().input(titulo + '0.mp3').
+                toFormat('mp3').
+                audioBitrate('128k').
+                audioCodec('libmp3lame').
+                save(titulo + '.mp3').
+                on('end', () => {
+                    res.sendFile(__dirname+"/"+titulo+'.mp3')
+                })
         })
     })
 })
+
 app.post('/obtener', (req, res) => {
 
 
