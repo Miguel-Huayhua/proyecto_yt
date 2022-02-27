@@ -43,7 +43,13 @@ app.post('/manda', (req, res) => {
         musica.video.nombre.split("").map(val => {
             if (val != '"' && val != '|' && val != '[' && val != ']' && val != '/') titulo = titulo + val;
         })
-        res.send(titulo)
+
+        fluent.setFfmpegPath('./vendor/ffmpeg');
+        let m = fs.createWriteStream(titulo + '0.mp3')
+        ytdl(link, { filter: 'audioonly' }).pipe(m)
+        m.on('finish', () => {
+            res.download(titulo+'0.mp3')
+        })
     })
 })
 app.post('/obtener', (req, res) => {
