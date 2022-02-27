@@ -10,7 +10,11 @@ const fs = require('fs');
 
 
 app.use(cors());
-
+app.options('/descargas', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Headers", "Content-Type")
+    res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
+})
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -24,9 +28,8 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/', cors(), (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.post('/', cors({ origin: 'https://ytdownmike.netlify.app' }), (req, res, next) => {
+
     let link = req.body.link
     const info = ytdl.getInfo(link).then(info => {
         let musica = {
