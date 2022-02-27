@@ -48,7 +48,7 @@ app.post('/manda', (req, res) => {
         let m = fs.createWriteStream(titulo + '0.mp3')
         ytdl(link, { filter: 'audioonly' }).pipe(m)
         m.on('finish', () => {
-            res.download(titulo+'0.mp3')
+            res.send(titulo+'0.mp3')
         })
     })
 })
