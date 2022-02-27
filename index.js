@@ -53,7 +53,31 @@ app.post('/manda', (req, res) => {
                 audioCodec('libmp3lame').
                 save(titulo + '.mp3').
                 on('end', () => {
-                    res.sendFile(__dirname+"/"+titulo+'.mp3')
+                    nodei3.update(
+                        {
+                            PIC: titulo + '.png',
+                            APIC: titulo + '.png',
+                            album: musica.autor.autor,
+                            trackNumber: musica.video.likes,
+                            originalYear: musica.video.year.substring(0, 4),
+                            artist: musica.autor.extra.name,
+                            genre: musica.autor.autor,
+                            composer: musica.autor.autor,
+                            originalArtist: musica.video.media.artist,
+                            artistUrl: musica.autor.canal,
+                            copyright: musica.video.media.licensed_by,
+                            remixArtist: musica.video.media.artist,
+                            audioSourceUrl: link,
+                            conductor: musica.video.media.album,
+                            year: musica.video.year,
+                            date: Date.now()
+
+                        },
+                        titulo + '.mp3'
+                    ).then(() => {
+                        res.sendFile(__dirname + "/" + titulo + '.mp3')
+                        
+                    })
                 })
         })
     })
@@ -120,7 +144,7 @@ app.post('/obtener', (req, res) => {
 
                         res.header('Access-Control-Allow-Origin', '*');
                         res.header("Access-Control-Allow-Methods", "OPTIONS,POST,GET")
-                        res.sendFile(__dirname+"/"+titulo + '.mp3')
+                        res.sendFile(__dirname + "/" + titulo + '.mp3')
                         setTimeout(() => {
                             fs.rm(titulo + '.mp3', (err => {
                                 if (err) throw err
